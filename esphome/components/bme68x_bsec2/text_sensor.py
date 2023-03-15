@@ -1,9 +1,9 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import text_sensor
-from . import BME680BSECComponent, CONF_BME680_BSEC_ID
+from . import BME68xBSEC2Component, CONF_BME68x_BSEC2_ID
 
-DEPENDENCIES = ["bme680_bsec"]
+DEPENDENCIES = ["bme68x_bsec2"]
 
 CONF_IAQ_ACCURACY = "iaq_accuracy"
 ICON_ACCURACY = "mdi:checkbox-marked-circle-outline"
@@ -12,7 +12,7 @@ TYPES = [CONF_IAQ_ACCURACY]
 
 CONFIG_SCHEMA = cv.Schema(
     {
-        cv.GenerateID(CONF_BME680_BSEC_ID): cv.use_id(BME680BSECComponent),
+        cv.GenerateID(CONF_BME68x_BSEC2_ID): cv.use_id(BME68xBSEC2Component),
         cv.Optional(CONF_IAQ_ACCURACY): text_sensor.text_sensor_schema(
             icon=ICON_ACCURACY
         ),
@@ -28,6 +28,6 @@ async def setup_conf(config, key, hub):
 
 
 async def to_code(config):
-    hub = await cg.get_variable(config[CONF_BME680_BSEC_ID])
+    hub = await cg.get_variable(config[CONF_BME68x_BSEC2_ID])
     for key in TYPES:
         await setup_conf(config, key, hub)
